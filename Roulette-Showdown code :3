@@ -1,0 +1,44 @@
+import random
+import time
+import os
+import tkinter as tk
+import winsound
+
+def show_countdown():
+    root = tk.Tk()
+    root.title("WARNING")
+    root.geometry("300x150")
+    root.resizable(False, False)
+    root.attributes("-topmost", True)  # Always on top
+
+    label = tk.Label(root, text="You got unlucky!\nYour PC is shutting down in:", font=("Arial", 12))
+    label.pack(pady=10)
+
+    countdown_label = tk.Label(root, text="30", font=("Arial", 40, "bold"), fg="red")
+    countdown_label.pack()
+
+    def play_beep():
+        winsound.Beep(1000, 500)  # Frequency 1000Hz, duration 500ms
+        root.after(1000, play_beep)  # Repeat every second
+
+    def update_countdown(seconds):
+        if seconds <= 0:
+            root.destroy()
+        else:
+            countdown_label.config(text=str(seconds))
+            root.after(1000, update_countdown, seconds - 1)
+
+    play_beep()
+    update_countdown(30)
+    root.mainloop()
+
+def maybe_shutdown():
+    if random.random() < 0.01:
+        os.system("shutdown /s /t 30")  # Shutdown in 30 seconds
+        show_countdown()               # Show countdown popup
+    else:
+        print("Safe this time... Next check in 30 minutes.")
+
+while True:
+    maybe_shutdown()
+    time.sleep(30 * 60)
