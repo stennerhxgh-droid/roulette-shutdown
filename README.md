@@ -3,3 +3,4 @@ Roulette-shutdown is a subtle background app that introduces an element of chanc
 Thank you for using my app :3
 I haven't tested it yet
 there Should Be a timer when it's shutdown with a sound of 1000Hz
+(And if you try to delete it, remember to fully close down the app using Task Manager.)
